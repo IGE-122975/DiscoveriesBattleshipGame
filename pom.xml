@@ -6,8 +6,39 @@
   <artifactId>Battleship</artifactId>
   <version>1.0-SNAPSHOT</version>
   <name>Battleship</name>
-  <description>A simple Battleship.</description>
-  <url>https://github.com/alopes-iul/Battleship</url>
+  <description>Discoveries-themed Battleship game (IGE-RDM, ES 2025/2026).</description>
+  <url>https://github.com/IGE-122975/DiscoveriesBattleshipGame</url>
+
+  <scm>
+    <url>https://github.com/IGE-122975/DiscoveriesBattleshipGame</url>
+    <connection>scm:git:https://github.com/IGE-122975/DiscoveriesBattleshipGame.git</connection>
+    <developerConnection>scm:git:git@github.com:IGE-122975/DiscoveriesBattleshipGame.git</developerConnection>
+  </scm>
+
+  <issueManagement>
+    <system>GitHub Issues</system>
+    <url>https://github.com/IGE-122975/DiscoveriesBattleshipGame/issues</url>
+  </issueManagement>
+
+  <ciManagement>
+    <system>GitHub Actions</system>
+    <url>https://github.com/IGE-122975/DiscoveriesBattleshipGame/actions</url>
+  </ciManagement>
+
+  <developers>
+    <developer>
+      <id>IGE-122975</id>
+      <name>Manuel Ferreira</name>
+    </developer>
+    <developer>
+      <id>IGE-123002</id>
+      <name>Rui Coelho</name>
+    </developer>
+    <developer>
+      <id>IGE-123901</id>
+      <name>Dinis Silva</name>
+    </developer>
+  </developers>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.release>17</maven.compiler.release>
