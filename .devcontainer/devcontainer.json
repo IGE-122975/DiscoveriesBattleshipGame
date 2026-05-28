@@ -38,9 +38,10 @@
         }
     },
 
-    // After the container is created, warm the Maven cache so future builds are fast.
-    // Tests are skipped on purpose: AppTest still uses JUnit 3 imports.
-    "postCreateCommand": "mvn -B -q dependency:go-offline -Dmaven.test.skip=true || true",
+    // After the container is created, warm the Maven cache and run the test
+    // suite. Tests now compile (AppTest was migrated to JUnit Jupiter), so the
+    // post-create command gives a free smoke check that the environment works.
+    "postCreateCommand": "mvn -B -q dependency:go-offline && mvn -B -q clean test",
 
     // Non-root user provided by the base image
     "remoteUser": "vscode"
