@@ -1,0 +1,28 @@
+﻿=== E.4 — Pull + run da imagem Docker Hub (IGE-123002, 2026-05-28 20:52) ===
+
+$ docker image inspect battleship-game:latest --format '{{.Id}} {{.Created}} {{.Size}}'
+sha256:3945c7baf94b9c791272a7e0b7899e007b397d2908d343249b4335b047d97811 2026-05-28T12:06:01.158471289Z 111422293B
+
+$ echo posicionar-frota | docker run -i --rm battleship-game:latest
+
+***  Battleship Game ***
+docker : 2026-05-28T19:52:11.581488260Z main INFO Starting configuration 
+XmlConfiguration[location=jar:file:/app/app.jar!/log4j2.xml, lastModified=2026-05-28T12:05:57Z]...
+At line:1 char:898
++ ... ionar-frota" | docker run -i --rm battleship-game:latest 2>&1 | Selec ...
++                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (2026-05-28T19:5...8T12:05:57Z]...:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+2026-05-28T19:52:11.583369260Z main INFO Configuration XmlConfiguration[location=jar:file:/app/app.jar!/log4j2.xml, 
+lastModified=2026-05-28T12:05:57Z] started.
+2026-05-28T19:52:11.589476285Z main INFO Stopping configuration 
+org.apache.logging.log4j.core.config.DefaultConfiguration@48503868...
+2026-05-28T19:52:11.590677948Z main INFO Configuration 
+org.apache.logging.log4j.core.config.DefaultConfiguration@48503868 stopped.
+19:52:11 [main] INFO  iscteiul.ista.battleship.Tasks - Que comando é esse??? Repete lá ...
+Exception in thread "main" java.util.NoSuchElementException
+	at java.base/java.util.Scanner.throwFor(Unknown Source)
+	at java.base/java.util.Scanner.next(Unknown Source)
+	at iscteiul.ista.battleship.Tasks.taskB(Tasks.java:73)
+	at iscteiul.ista.App.main(App.java:19)

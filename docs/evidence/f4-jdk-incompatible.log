@@ -1,0 +1,48 @@
+﻿===========================================================
+F.4 — Teste controlado de JDK incompativel
+===========================================================
+
+--- (b) FORA do DevContainer, host com JDK 8 ---
+Tenta-se invocar javac 8 com --release 17:
+
+docker : Unable to find image 'eclipse-temurin:8-jdk' locally
+At line:1 char:868
++ ... f8 -Append; docker run --rm -v "${PWD}:/app" -w /app eclipse-temurin: ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Unable to find ...:8-jdk' locally:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+8-jdk: Pulling from library/eclipse-temurin
+8e7ce9a29c91: Pulling fs layer
+baa312f46315: Pulling fs layer
+e96007ff4fa8: Pulling fs layer
+633f3bb3d375: Pulling fs layer
+baa312f46315: Download complete
+8e7ce9a29c91: Download complete
+93fbf21b1006: Download complete
+eb6ebcb9c30b: Download complete
+633f3bb3d375: Download complete
+633f3bb3d375: Pull complete
+e96007ff4fa8: Download complete
+e96007ff4fa8: Pull complete
+baa312f46315: Pull complete
+8e7ce9a29c91: Pull complete
+Digest: sha256:fb1461dc88df08276706709d388f71c9e5eb2dc979e0ce9131118d9b601db331
+Status: Downloaded newer image for eclipse-temurin:8-jdk
+javac 1.8.0_492
+---
+javac: invalid flag: --release
+Usage: javac <options> <source files>
+use -help for a list of possible options
+---exit: True
+
+--- (c) DENTRO do DevContainer (JDK 17) ---
+javac 17.0.16
+[0m[0mcompile OK
+docker : [0m[0m
+At line:1 char:1340
++ ... f8 -Append; docker run --rm -v "${PWD}:/app" -w /app battleship-devco ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ([0m[0m:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
