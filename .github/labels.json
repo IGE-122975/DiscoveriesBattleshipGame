@@ -63,5 +63,15 @@
     "name": "type: QUESTION",
     "color": "D946EF",
     "description": "Further information is requested"
+  },
+  {
+    "name": "Dev Container",
+    "color": "1FAA64",
+    "description": "Issue or fix related to the .devcontainer/ reproducible environment (Ficha 6 F.3)"
+  },
+  {
+    "name": "intergroup",
+    "color": "7C3AED",
+    "description": "Bug report or feedback from another group testing our deployment (Ficha 6 I)"
   }
 ]

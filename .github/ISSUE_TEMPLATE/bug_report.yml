@@ -1,0 +1,62 @@
+name: 🐛 Bug report
+description: Report a defect inside our own code
+title: "bug: <short description>"
+labels:
+  - "type: BUG"
+  - "priority: MEDIUM"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to file a bug. Fill in the sections
+        below — the more concrete you are, the faster we can fix it.
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: One sentence describing the wrong behaviour.
+      placeholder: "When I do X, Y happens instead of Z."
+    validations:
+      required: true
+
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      description: Minimal sequence of actions that triggers the bug.
+      placeholder: |
+        1. Run `docker run -it ige122975/battleship-game`
+        2. Type `posicionar-frota`
+        3. ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behaviour
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behaviour
+      description: Include log output, stack traces or screenshots.
+    validations:
+      required: true
+
+  - type: textarea
+    id: env
+    attributes:
+      label: Test environment
+      description: Where did this happen?
+      value: |
+        - OS:
+        - Java version (`java -version`):
+        - Maven version (`mvn -v`):
+        - Container or host:
+        - Commit / image tag:
+    validations:
+      required: true

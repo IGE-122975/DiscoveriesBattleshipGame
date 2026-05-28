@@ -1,0 +1,78 @@
+name: 🤝 Inter-group bug report (Ficha 6 I)
+description: For another group testing our deployed game
+title: "[intergroup] <short description>"
+labels:
+  - "type: BUG"
+  - "priority: MEDIUM"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Obrigado por testar o nosso jogo!
+        Esta secção segue o formato pedido pela Ficha 6 (Tarefa I.5).
+
+  - type: input
+    id: reporter
+    attributes:
+      label: Grupo / membro
+      description: Para retribuirmos no vosso repositório (ex.: "IGE-FOO / IGE-123456").
+    validations:
+      required: true
+
+  - type: input
+    id: url
+    attributes:
+      label: URL público testado
+      description: SnapDeploy / outro endpoint onde reproduziu o bug.
+      placeholder: https://battleship-rdm.snapdeploy.app/
+    validations:
+      required: true
+
+  - type: textarea
+    id: repro
+    attributes:
+      label: Passos para reproduzir
+      placeholder: |
+        1. Abrir o URL …
+        2. Escolher `posicionar-frota`
+        3. ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Comportamento esperado
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Comportamento atual
+      description: Cole stack traces, logs ou screenshots.
+    validations:
+      required: true
+
+  - type: textarea
+    id: env
+    attributes:
+      label: Ambiente de teste
+      value: |
+        - Browser / cliente:
+        - SO do testador:
+        - Data e hora:
+    validations:
+      required: true
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severidade
+      options:
+        - "Crítico (jogo crasha / inacessível)"
+        - "Alto (funcionalidade core não funciona)"
+        - "Médio (funcionalidade secundária)"
+        - "Baixo (cosmético / sugestão)"
+    validations:
+      required: true

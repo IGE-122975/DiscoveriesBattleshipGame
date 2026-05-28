@@ -191,10 +191,27 @@
     </section>
 
     <section>
+        <h2>Jogar online</h2>
+        <p>Container do jogo a correr no SnapDeploy, atualizado automaticamente
+           a cada push para <code>main</code> através do
+           <a href="https://github.com/IGE-122975/DiscoveriesBattleshipGame/actions/workflows/completeWorkflow.yaml" style="color:var(--dourado);">workflow CI/CD</a>.</p>
+        <div class="links">
+            <a href="__SNAPDEPLOY_URL__">🚀 Abrir o jogo</a>
+            <a href="https://hub.docker.com/r/ige122975/battleship-game">🐳 Imagem no Docker Hub</a>
+        </div>
+        <p style="margin-top:12px;color:var(--texto-suave);font-size:.9rem;">
+            Em alternativa, em qualquer máquina com Docker:
+            <code style="color:var(--dourado);">docker run -it ige122975/battleship-game</code>
+        </p>
+    </section>
+
+    <section>
         <h2>Documentação do Projeto</h2>
         <div class="links">
             <a href="apidocs/index.html">📚 Javadoc (API)</a>
             <a href="site/index.html">📄 Site do Projeto</a>
+            <a href="https://github.com/IGE-122975/DiscoveriesBattleshipGame">💻 Código no GitHub</a>
+            <a href="https://github.com/IGE-122975/DiscoveriesBattleshipGame/blob/main/docs/operations/snapdeploy.md">📘 Runbook SnapDeploy</a>
         </div>
     </section>
 

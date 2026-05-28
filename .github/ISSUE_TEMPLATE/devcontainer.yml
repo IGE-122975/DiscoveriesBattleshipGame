@@ -1,0 +1,55 @@
+name: 📦 DevContainer problem (Ficha 6 F.3)
+description: Something broke while running inside the DevContainer
+title: "devcontainer: <short description>"
+labels:
+  - "type: BUG"
+  - "Dev Container"
+  - "priority: HIGH"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this template for any DevContainer / reproducibility issue
+        encountered during the F.3 cross-validation.
+
+  - type: textarea
+    id: what
+    attributes:
+      label: What broke
+      placeholder: "apt-get update fails / mvn compile fails / etc."
+    validations:
+      required: true
+
+  - type: textarea
+    id: cmd
+    attributes:
+      label: Command run
+      placeholder: |
+        docker build -f .devcontainer/Dockerfile -t bs-dev .devcontainer
+    validations:
+      required: true
+
+  - type: textarea
+    id: output
+    attributes:
+      label: Relevant output (last ~30 lines)
+      render: shell
+    validations:
+      required: true
+
+  - type: textarea
+    id: host
+    attributes:
+      label: Host setup
+      value: |
+        - OS:
+        - Docker version:
+        - DevContainer base image tag:
+    validations:
+      required: true
+
+  - type: textarea
+    id: fix
+    attributes:
+      label: Proposed fix (optional)
+      description: If you already know how to fix it, paste a patch or PR link.
