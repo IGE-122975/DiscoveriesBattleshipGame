@@ -3,337 +3,205 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Battleship · IGE-RDM</title>
+    <title>Battleship 🚢 — IGE-RDM</title>
     <style>
         :root {
-            --sea-deep: #0a2540;
-            --sea-mid: #1e3a5f;
-            --sea-light: #2563eb;
-            --sand: #f5e6c8;
-            --foam: #e8f4f8;
-            --ink: #0f172a;
-            --muted: #64748b;
-            --card: #ffffff;
-            --shadow: 0 4px 20px rgba(10, 37, 64, 0.08);
+            --azul-fundo: #0a1929;
+            --azul-cartao: #102a43;
+            --azul-claro: #4a90d9;
+            --dourado: #d4a93f;
+            --texto: #e3eaf2;
+            --texto-suave: #9fb3c8;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        html { scroll-behavior: smooth; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+            font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background: linear-gradient(160deg, var(--azul-fundo) 0%, #07111d 100%);
+            color: var(--texto);
             line-height: 1.6;
-            color: var(--ink);
-            background: linear-gradient(180deg, var(--foam) 0%, #ffffff 100%);
-            min-height: 100vh;
+            padding: 0;
         }
 
         header {
-            background: linear-gradient(135deg, var(--sea-deep) 0%, var(--sea-mid) 100%);
-            color: white;
-            padding: 4rem 1.5rem 6rem;
             text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        header::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background-image:
-                radial-gradient(circle at 20% 80%, rgba(255,255,255,0.05) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(255,255,255,0.05) 0%, transparent 50%);
+            padding: 60px 20px 40px;
+            border-bottom: 2px solid var(--dourado);
         }
 
         header h1 {
-            font-size: clamp(2.5rem, 6vw, 4rem);
-            font-weight: 800;
-            letter-spacing: -0.02em;
-            margin-bottom: 0.5rem;
-            position: relative;
-        }
-
-        header .ship {
-            font-size: clamp(3rem, 8vw, 5rem);
-            display: block;
-            margin-bottom: 0.5rem;
-        }
-
-        header .tagline {
-            font-size: 1.1rem;
-            opacity: 0.85;
-            font-weight: 300;
-            position: relative;
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            letter-spacing: 1px;
         }
 
         header .nickname {
-            display: inline-block;
-            margin-top: 1.5rem;
-            padding: 0.5rem 1.25rem;
-            background: rgba(255,255,255,0.12);
-            border: 1px solid rgba(255,255,255,0.2);
-            border-radius: 999px;
-            font-size: 0.9rem;
-            letter-spacing: 0.05em;
-            backdrop-filter: blur(8px);
-            position: relative;
+            color: var(--dourado);
+            font-size: clamp(1rem, 3vw, 1.4rem);
+            margin-top: 10px;
+            font-weight: 600;
         }
 
-        main {
-            max-width: 980px;
-            margin: -3rem auto 4rem;
-            padding: 0 1.5rem;
-            position: relative;
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
         }
 
-        section {
-            background: var(--card);
-            border-radius: 16px;
-            padding: 2.5rem;
-            margin-bottom: 1.5rem;
-            box-shadow: var(--shadow);
-        }
+        section { margin-bottom: 48px; }
 
         h2 {
-            font-size: 1.75rem;
-            margin-bottom: 1.25rem;
-            color: var(--sea-deep);
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-        }
-
-        h2::before {
-            content: "";
-            display: block;
-            width: 4px;
-            height: 1.5rem;
-            background: var(--sea-light);
-            border-radius: 2px;
+            color: var(--azul-claro);
+            border-left: 4px solid var(--dourado);
+            padding-left: 12px;
+            margin-bottom: 20px;
+            font-size: clamp(1.3rem, 4vw, 1.8rem);
         }
 
         h3 {
-            font-size: 1.2rem;
-            margin: 1.5rem 0 0.5rem;
-            color: var(--sea-mid);
+            color: var(--dourado);
+            margin: 24px 0 8px;
+            font-size: 1.15rem;
         }
 
-        p { color: var(--ink); margin-bottom: 0.75rem; }
-        p.muted { color: var(--muted); }
+        p { color: var(--texto-suave); margin-bottom: 12px; }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 1rem;
+            margin-top: 12px;
+            background: var(--azul-cartao);
+            border-radius: 8px;
+            overflow: hidden;
         }
+
         th, td {
+            padding: 12px 16px;
             text-align: left;
-            padding: 0.85rem 1rem;
-            border-bottom: 1px solid #e2e8f0;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
         }
+
         th {
-            background: var(--foam);
-            color: var(--sea-deep);
-            font-weight: 600;
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
+            background: rgba(74,144,217,0.2);
+            color: var(--texto);
         }
+
         tr:last-child td { border-bottom: none; }
-        td code {
-            background: var(--foam);
-            padding: 0.15rem 0.5rem;
-            border-radius: 4px;
-            font-size: 0.85rem;
-            color: var(--sea-deep);
-        }
 
-        .ships-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 1rem;
-            margin-top: 1rem;
-        }
         .ship-card {
-            border: 1px solid #e2e8f0;
-            border-radius: 12px;
-            padding: 1.25rem;
-            transition: transform 0.15s, box-shadow 0.15s;
+            background: var(--azul-cartao);
+            border-radius: 8px;
+            padding: 18px 22px;
+            margin-bottom: 16px;
+            border-left: 3px solid var(--azul-claro);
+            transition: transform 0.15s ease, border-color 0.15s ease;
         }
-        .ship-card:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow);
-            border-color: var(--sea-light);
-        }
-        .ship-card .icon {
-            font-size: 2rem;
-            display: block;
-            margin-bottom: 0.5rem;
-        }
-        .ship-card h3 { margin: 0 0 0.5rem; font-size: 1.1rem; }
-        .ship-card .en {
-            display: inline-block;
-            font-size: 0.75rem;
-            color: var(--sea-light);
-            background: var(--foam);
-            padding: 0.1rem 0.5rem;
-            border-radius: 4px;
-            margin-left: 0.4rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            font-weight: 600;
-        }
-        .ship-card p { font-size: 0.92rem; color: var(--muted); margin: 0; }
 
-        .actions {
+        .ship-card:hover {
+            transform: translateX(4px);
+            border-left-color: var(--dourado);
+        }
+
+        .links {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.75rem;
-            margin-top: 1.5rem;
+            gap: 16px;
+            justify-content: center;
         }
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.75rem 1.25rem;
-            border-radius: 8px;
+
+        .links a {
+            display: inline-block;
+            background: var(--azul-claro);
+            color: #fff;
             text-decoration: none;
+            padding: 12px 28px;
+            border-radius: 6px;
             font-weight: 600;
-            font-size: 0.95rem;
-            transition: all 0.15s;
+            transition: background 0.15s ease;
         }
-        .btn-primary {
-            background: var(--sea-deep);
-            color: white;
-        }
-        .btn-primary:hover { background: var(--sea-mid); transform: translateY(-1px); }
-        .btn-secondary {
-            background: var(--foam);
-            color: var(--sea-deep);
-            border: 1px solid #cbd5e1;
-        }
-        .btn-secondary:hover { background: white; border-color: var(--sea-light); }
+
+        .links a:hover { background: var(--dourado); }
 
         footer {
             text-align: center;
-            padding: 2rem 1.5rem;
-            color: var(--muted);
+            padding: 30px 20px;
+            color: var(--texto-suave);
             font-size: 0.9rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
         }
-        footer a { color: var(--sea-light); text-decoration: none; }
-        footer a:hover { text-decoration: underline; }
 
-        @media (max-width: 640px) {
-            section { padding: 1.5rem; }
-            main { margin-top: -2rem; }
+        @media (max-width: 600px) {
+            header { padding: 40px 16px 28px; }
+            .container { padding: 24px 16px; }
+            th, td { padding: 10px 12px; font-size: 0.92rem; }
         }
     </style>
 </head>
 <body>
-
 <header>
-    <span class="ship">🚢</span>
-    <h1>Battleship</h1>
-    <p class="tagline">Versão académica do clássico Batalha Naval</p>
-    <span class="nickname">IGE · RDM</span>
+    <h1>Battleship 🚢</h1>
+    <div class="nickname">IGE - RDM</div>
 </header>
 
-<main>
+<div class="container">
 
-    <section id="descricao">
-        <h2>Descrição</h2>
-        <p>Implementação académica de um jogo de Batalha Naval inspirada nos navios das
-            Descobertas portuguesas. Projeto desenvolvido em <strong>Java 17</strong> com
-            <strong>Maven</strong>, integrando práticas de Engenharia de Software como
-            CI/CD via GitHub Actions, contentorização com Docker, análise de qualidade
-            estática (SonarQube/Qodana) e documentação automatizada.</p>
-
-        <div class="actions">
-            <a class="btn btn-primary" href="apidocs/index.html">📚 Javadoc API</a>
-            <a class="btn btn-secondary" href="https://github.com/IGE-122975/DiscoveriesBattleshipGame">💻 Código fonte</a>
-        </div>
-    </section>
-
-    <section id="equipa">
-        <h2>Equipa</h2>
+    <section>
+        <h2>Membros da Equipa</h2>
         <table>
             <thead>
             <tr><th>Número</th><th>Nome</th></tr>
             </thead>
             <tbody>
-            <tr><td><code>123002</code></td><td>Rui Coelho</td></tr>
-            <tr><td><code>122975</code></td><td>Manuel Ferreira</td></tr>
-            <tr><td><code>123901</code></td><td>Dinis Silva</td></tr>
+            <tr><td>123002</td><td>Rui Coelho</td></tr>
+            <tr><td>122975</td><td>Manuel Ferreira</td></tr>
+            <tr><td>123901</td><td>Dinis Silva</td></tr>
             </tbody>
         </table>
     </section>
 
-    <section id="navios">
-        <h2>Frota das Descobertas</h2>
-        <p class="muted">Os 5 navios que dão nome e identidade a este Batalha Naval.</p>
+    <section>
+        <h2>Descrição</h2>
+        <p>Versão académica base do jogo Battleship, construída para servir de ponto de partida para desenvolvimento.</p>
+        <p>Os navios disponíveis no jogo são inspirados nas embarcações da época dos Descobrimentos:</p>
 
-        <div class="ships-grid">
-            <div class="ship-card">
-                <span class="icon">⚓</span>
-                <h3>Galeão <span class="en">Galleon</span></h3>
-                <p>Grande navio de guerra e carga dos séculos XVI e XVII, robusto, com vários
-                    conveses e muitas peças de artilharia, usado em longas viagens oceânicas
-                    e batalhas navais.</p>
-            </div>
+        <div class="ship-card">
+            <h3>Porta-aviões (Galleon)</h3>
+            <p>O galeão era um grande navio de guerra e carga dos séculos XVI e XVII, robusto, com vários conveses e muitas peças de artilharia, usado em longas viagens oceânicas e batalhas navais.</p>
+        </div>
 
-            <div class="ship-card">
-                <span class="icon">🛥️</span>
-                <h3>Fragata <span class="en">Frigate</span></h3>
-                <p>Navio de guerra relativamente rápido e manobrável, com boa autonomia,
-                    usado sobretudo para escolta de comboios, patrulha e luta contra
-                    submarinos ou outros navios de superfície.</p>
-            </div>
+        <div class="ship-card">
+            <h3>Fragata (Frigate)</h3>
+            <p>A fragata é um navio de guerra relativamente rápido e manobrável, com boa autonomia, usado sobretudo para escolta de comboios, patrulha e luta contra submarinos ou outros navios de superfície.</p>
+        </div>
 
-            <div class="ship-card">
-                <span class="icon">⛵</span>
-                <h3>Nau <span class="en">Carrack</span></h3>
-                <p>Grande navio das Grandes Navegações, mais volumoso e estável que a
-                    caravela, capaz de transportar muitos tripulantes, carga e também
-                    artilharia em viagens oceânicas de longa distância.</p>
-            </div>
+        <div class="ship-card">
+            <h3>Nau (Carrack)</h3>
+            <p>A nau (carrack) era um grande navio das Grandes Navegações, mais volumoso e estável que a caravela, capaz de transportar muitos tripulantes, carga e também artilharia em viagens oceânicas de longa distância.</p>
+        </div>
 
-            <div class="ship-card">
-                <span class="icon">🚤</span>
-                <h3>Caravela <span class="en">Caravel</span></h3>
-                <p>Navio leve e muito manobrável, com baixo calado, ideal para explorar
-                    costas, rios e realizar viagens de descoberta, sacrificando capacidade
-                    de carga em troca de velocidade e agilidade.</p>
-            </div>
+        <div class="ship-card">
+            <h3>Caravela (Caravel)</h3>
+            <p>A caravela era um navio leve e muito manobrável, com baixo calado, ideal para explorar costas, rios e realizar viagens de descoberta, sacrificando capacidade de carga em troca de velocidade e agilidade.</p>
+        </div>
 
-            <div class="ship-card">
-                <span class="icon">🛶</span>
-                <h3>Barca <span class="en">Barge</span></h3>
-                <p>Embarcação simples, de fundo chato e pouca profundidade, usada sobretudo
-                    para transporte de pessoas ou carga em rios, portos e águas calmas, com
-                    pouca ou nenhuma artilharia.</p>
-            </div>
+        <div class="ship-card">
+            <h3>Barca (Barge)</h3>
+            <p>A barca (barge) é uma embarcação simples, de fundo chato e pouca profundidade, usada sobretudo para transporte de pessoas ou carga em rios, portos e águas calmas, com pouca ou nenhuma artilharia.</p>
         </div>
     </section>
 
-    <section id="recursos">
-        <h2>Recursos</h2>
-        <table>
-            <tr><th>Recurso</th><th>Localização</th></tr>
-            <tr><td>Javadoc da API</td><td><a href="apidocs/index.html">/apidocs</a></td></tr>
-            <tr><td>Repositório</td><td><a href="https://github.com/IGE-122975/DiscoveriesBattleshipGame">github.com/IGE-122975/DiscoveriesBattleshipGame</a></td></tr>
-            <tr><td>Workflows CI/CD</td><td><a href="https://github.com/IGE-122975/DiscoveriesBattleshipGame/actions">Actions</a></td></tr>
-            <tr><td>Issues / Bug reports</td><td><a href="https://github.com/IGE-122975/DiscoveriesBattleshipGame/issues">Issues</a></td></tr>
-        </table>
+    <section>
+        <h2>Documentação do Projeto</h2>
+        <div class="links">
+            <a href="apidocs/index.html">📚 Javadoc (API)</a>
+            <a href="site/index.html">📄 Site do Projeto</a>
+        </div>
     </section>
 
-</main>
+</div>
 
 <footer>
-    <p>Engenharia de Software · LIGE/LIGE-PL · ISCTE 2025/2026 · Grupo IGE-RDM</p>
-    <p>Construído com Java 17 · Maven · Docker · GitHub Actions</p>
+    Engenharia de Software · LIGE/LIGE-PL 2025/2026 · Grupo IGE-RDM
 </footer>
-
 </body>
 </html>
