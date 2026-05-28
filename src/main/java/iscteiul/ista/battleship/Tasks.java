@@ -11,7 +11,6 @@ import org.apache.logging.log4j.Logger;
 
 public class Tasks {
     private static final Logger LOGGER = LogManager.getLogger(Tasks.class);
-
     private static final int NUMBER_SHOTS = 3;
 
     private static final String GOODBYE_MESSAGE = "Bons ventos!";

@@ -45,3 +45,4 @@
     // Non-root user provided by the base image
     "remoteUser": "vscode"
 }
+
