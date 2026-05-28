@@ -37,6 +37,31 @@
     </dependency>
   </dependencies>
   <build>
+    <pluginManagement>
+      <plugins>
+        <!-- Pinning compiler version is essential for portability: older
+             Debian-packaged Maven (used inside the DevContainer) defaults to
+             maven-compiler-plugin 3.1, which ignores the `release` property
+             and falls back to source/target 1.5 → compile failure.
+             See Issue "F.3 — mvn compile fails with 'Source option 5 …' inside DevContainer". -->
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.13.0</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>3.5.4</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-jar-plugin</artifactId>
+          <version>3.4.2</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
