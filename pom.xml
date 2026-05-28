@@ -44,10 +44,53 @@
     </dependency>
   </dependencies>
 
+  <build>
+    <plugins>
+      <!-- Generates Javadoc HTML directly into docs/apidocs/ so GitHub Pages
+           can serve it without an extra copy step.
+           Run with: mvn -Dmaven.test.skip=true javadoc:javadoc -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>3.6.3</version>
+        <configuration>
+          <reportOutputDirectory>${project.basedir}/docs</reportOutputDirectory>
+          <destDir>apidocs</destDir>
+          <show>protected</show>
+          <doclint>none</doclint>
+        </configuration>
+      </plugin>
+
+      <!-- mvn site outputs to docs/site/ to avoid clobbering the hand-crafted
+           docs/index.html. Generated with: mvn site -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-site-plugin</artifactId>
+        <version>4.0.0-M13</version>
+        <configuration>
+          <outputDirectory>${project.basedir}/docs/site</outputDirectory>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
   <reporting>
     <plugins>
       <plugin>
         <artifactId>maven-project-info-reports-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>3.6.3</version>
+        <reportSets>
+          <reportSet>
+            <id>html</id>
+            <reports>
+              <report>javadoc</report>
+            </reports>
+          </reportSet>
+        </reportSets>
       </plugin>
     </plugins>
   </reporting>
