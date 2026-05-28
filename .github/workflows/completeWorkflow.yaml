@@ -1,0 +1,117 @@
+name: Complete CI/CD Pipeline
+
+# Triggered by any push to main, except commits that only touch docs/
+# (we ourselves push to docs/apidocs/ from this workflow — avoid infinite loop).
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - 'docs/apidocs/**'
+      - '**.md'
+  workflow_dispatch: {}
+
+# Required so the workflow can push the regenerated javadoc back to the repo
+permissions:
+  contents: write
+
+jobs:
+  pipeline:
+    name: Build · Test · Quality · Image · Pages
+    runs-on: ubuntu-latest
+
+    steps:
+      # ----- 1. Source -----
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # SonarCloud wants full history for blame info
+
+      # ----- 2. Toolchain -----
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: maven
+
+      # ----- 3. Verify dependencies -----
+      - name: List Maven dependencies
+        run: mvn -B -q dependency:list -DexcludeTransitive=false
+
+      # ----- 4. Compile -----
+      - name: Compile sources
+        run: mvn -B -q clean compile
+
+      # ----- 5. Tests -----
+      - name: Run unit tests
+        run: mvn -B test
+
+      # ----- 6. SonarQube Cloud Quality Gate -----
+      # Runs only when the SONAR_TOKEN secret is set. Configure it at
+      # repo > Settings > Secrets > Actions to enable.
+      - name: SonarCloud scan & wait for Quality Gate
+        if: ${{ env.SONAR_TOKEN != '' }}
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          mvn -B verify \
+            org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
+            -Dsonar.host.url=https://sonarcloud.io \
+            -Dsonar.organization=ige-122975 \
+            -Dsonar.projectKey=IGE-122975_DiscoveriesBattleshipGame \
+            -Dsonar.qualitygate.wait=true
+
+      # ----- 7. Docker image build & push -----
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to Docker Hub
+        if: ${{ env.DOCKERHUB_USERNAME != '' }}
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Compute image metadata
+        id: meta
+        if: ${{ env.DOCKERHUB_USERNAME != '' }}
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ secrets.DOCKERHUB_USERNAME }}/battleship-game
+          tags: |
+            type=raw,value=latest,enable={{is_default_branch}}
+            type=sha,prefix=sha-,format=short
+
+      - name: Build and push Docker image
+        if: ${{ env.DOCKERHUB_USERNAME != '' }}
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./Dockerfile
+          platforms: linux/amd64
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      # ----- 8. Regenerate Javadoc and publish to GitHub Pages -----
+      - name: Regenerate Javadoc into docs/apidocs/
+        run: mvn -B -q -Dmaven.test.skip=true javadoc:javadoc
+
+      - name: Commit updated docs back to main
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          if [ -n "$(git status --porcelain docs/apidocs)" ]; then
+            git add docs/apidocs
+            git commit -m "docs: refresh javadoc apidocs from ${{ github.sha }} [skip ci]"
+            git push
+          else
+            echo "Javadoc unchanged; nothing to commit."
+          fi
+
+    env:
+      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

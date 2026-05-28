@@ -35,21 +35,8 @@
       <version>2.25.2</version>
       <scope>compile</scope>
     </dependency>
-    <dependency>
-      <groupId>org.testng</groupId>
-      <artifactId>testng</artifactId>
-      <version>RELEASE</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
-    </dependency>
   </dependencies>
   <build>
-    <finalName>battleship</finalName>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -70,6 +57,25 @@
             </configuration>
           </execution>
         </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>3.6.3</version>
+        <configuration>
+          <reportOutputDirectory>${project.basedir}/docs</reportOutputDirectory>
+          <destDir>apidocs</destDir>
+          <show>protected</show>
+          <doclint>none</doclint>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-site-plugin</artifactId>
+        <version>4.0.0-M13</version>
+        <configuration>
+          <outputDirectory>${project.basedir}/docs/site</outputDirectory>
+        </configuration>
       </plugin>
     </plugins>
   </build>

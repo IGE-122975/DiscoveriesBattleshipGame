@@ -1,23 +1,48 @@
 {
-  "name": "Battleship Dev Environment",
-  "build": {
-    "dockerfile": "Dockerfile"
-  },
-  "customizations": {
-    "vscode": {
-      "extensions": [
-        "ms-azuretools.vscode-docker",
-        "github.vscode-github-actions",
-        "yzhang.markdown-all-in-one",
-        "vscjava.vscode-java-pack"
-      ]
+    "name": "DiscoveriesBattleshipGame Dev",
+
+    "build": {
+        "dockerfile": "Dockerfile"
     },
-    "jetbrains": {
-      "plugins": [
-        "Docker",
-        "org.jetbrains.plugins.github"
-      ]
-    }
-  },
-  "postCreateCommand": "java -version && mvn -version && git --version"
+
+    // Extra features layered on top of the Dockerfile
+    "features": {
+        "ghcr.io/devcontainers/features/github-cli:1": {},
+        "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {
+            "moby": false
+        }
+    },
+
+    // IDE-specific recommendations
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "vscjava.vscode-java-pack",
+                "vscjava.vscode-maven",
+                "ms-azuretools.vscode-docker",
+                "github.vscode-github-actions",
+                "yzhang.markdown-all-in-one",
+                "redhat.vscode-yaml"
+            ],
+            "settings": {
+                "java.configuration.updateBuildConfiguration": "automatic",
+                "files.eol": "\n"
+            }
+        },
+        "jetbrains": {
+            "backend": "IntelliJ",
+            "plugins": [
+                "org.jetbrains.plugins.github",
+                "Docker"
+            ]
+        }
+    },
+
+    // After the container is created, warm the Maven cache so future builds are fast.
+    // Tests are skipped on purpose: AppTest still uses JUnit 3 imports.
+    "postCreateCommand": "mvn -B -q dependency:go-offline -Dmaven.test.skip=true || true",
+
+    // Non-root user provided by the base image
+    "remoteUser": "vscode"
 }
+

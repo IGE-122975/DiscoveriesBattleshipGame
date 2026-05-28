@@ -1,39 +1,22 @@
 package iscteiul.ista;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 /**
  * Unit test for simple App.
+ * Migrated from JUnit 3 (junit.framework.TestCase) to JUnit Jupiter
+ * to align with the JUnit BOM 6.0.0 declared in pom.xml.
  */
-public class AppTest
-    extends TestCase
-{
-    /**
-     * Create the test case
-     *
-     * @param testName name of the test case
-     */
-    public AppTest( String testName )
-    {
-        super( testName );
-    }
-
-    /**
-     * @return the suite of tests being tested
-     */
-    public static TestSuite suite()
-    {
-        return new TestSuite( AppTest.class );
-    }
+public class AppTest {
 
     /**
      * Rigourous Test :-)
      */
-    public void testApp()
-    {
-        assertTrue( true );
+    @Test
+    void testApp() {
+        assertTrue(true);
     }
 }
